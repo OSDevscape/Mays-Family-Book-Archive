@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Manage Books</title><link rel="stylesheet" href="styles.css" /><script defer src="app.js"></script></head>
+<body data-page="manage">
+<header class="topbar"><div><h1>Manage Books</h1><p>Add, edit, delete, collections, favorites</p></div><nav><a href="index.html">Home</a><a href="books.html">Books</a><a href="manage.html">Manage</a><a href="status.html">Status</a><a href="search.html">Search</a></nav></header>
+<main class="container">
+<section class="card"><div class="section-head"><h2 id="formTitle">Add a Book</h2><button id="newBookBtn">New Book</button></div><form id="bookForm" class="grid form-grid">
+<input type="hidden" name="id" />
+<input name="title" placeholder="Title" required />
+<input name="author" placeholder="Author" required />
+<select name="status"><option>Unread</option><option>Reading</option><option>Read</option></select>
+<select name="bookType"><option>Physical</option><option>Digital</option></select>
+<input name="physicalType" placeholder="Paperback / Hardback" />
+<input name="digitalType" placeholder="Kindle / Google" />
+<input name="seriesName" placeholder="Series name" />
+<input name="seriesNumber" type="number" min="0" placeholder="Series number" />
+<label><input name="isSpecialEdition" type="checkbox" /> Special edition</label>
+<label><input name="isFavorite" type="checkbox" /> Favorite</label>
+<fieldset class="collections-fieldset"><legend>Collections</legend><div id="collectionsBox" class="checkbox-row"></div></fieldset>
+<input name="tags" placeholder="Tags, comma separated" />
+<div class="toolbar"><button type="submit" id="saveBookBtn">Save Book</button><button type="button" id="cancelEditBtn">Cancel</button></div>
+</form></section>
+<section class="card"><div class="section-head"><h2>Existing Books</h2><p>Select edit or delete</p></div><div id="manageList"></div></section>
+</main>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/api/me', { credentials: 'include' });
+    const data = await res.json();
+    if (!data.loggedIn) window.location.replace('/login.html');
+  } catch (err) {
+    window.location.replace('/login.html');
+  }
+})();
+</script>
+
+</body></html>

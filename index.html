@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personal Library</title>
+<link rel="stylesheet" href="styles.css" />
+<script defer src="app.js"></script>
+</head>
+<body data-page="home">
+<header class="topbar"><div><h1>Personal Library</h1><p>Console-style book manager</p></div><nav><a href="index.html">Home</a><a href="books.html">Books</a><a href="manage.html">Manage</a><a href="status.html">Status</a><a href="search.html">Search</a></nav></header>
+<main class="container">
+<section class="card dashboard"><div class="dash-head"><h2>Library Overview</h2><div class="toolbar"><button id="exportBtn">Export JSON</button><label class="file-btn">Import JSON<input id="importInput" type="file" accept="application/json"></label></div></div><div id="stats" class="grid stats-grid"></div></section>
+<section class="card"><div class="section-head"><h2>Quick Views</h2></div><div class="toolbar"><button data-quick="all">All</button><button data-quick="Unread">Unread</button><button data-quick="Reading">Reading</button><button data-quick="Read">Read</button><button data-quick="favorites">Favorites</button><button data-quick="Owned">Owned</button></div><div id="quickList"></div></section>
+</main>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/api/me', { credentials: 'include' });
+    const data = await res.json();
+    if (!data.loggedIn) window.location.replace('/login.html');
+  } catch (err) {
+    window.location.replace('/login.html');
+  }
+})();
+</script>
+
+</body></html>

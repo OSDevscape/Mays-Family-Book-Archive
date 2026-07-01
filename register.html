@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card" style="max-width:420px;margin:40px auto;">
+      <h1>Register</h1>
+      <form id="registerForm" class="grid form-grid">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">Create Account</button>
+      </form>
+      <p id="registerMsg"></p>
+      <p style="margin-top:12px;">Already have an account? <a href="login.html">Login here</a>.</p>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById('registerForm');
+    const msg = document.getElementById('registerMsg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      const fd = new FormData(form);
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: fd.get('username'), password: fd.get('password'), confirmPassword: fd.get('confirmPassword') })
+      });
+      const data = await res.json();
+      if (!res.ok) { msg.textContent = data.error || 'Registration failed'; return; }
+      location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

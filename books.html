@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Books</title><link rel="stylesheet" href="styles.css" /><script defer src="app.js"></script></head>
+<body data-page="books">
+<header class="topbar"><div><h1>Books</h1><p>Full library view</p></div><nav><a href="index.html">Home</a><a href="books.html">Books</a><a href="manage.html">Manage</a><a href="status.html">Status</a><a href="search.html">Search</a></nav></header>
+<main class="container">
+<section class="card"><div class="toolbar"><button data-filter="all">All</button><button data-filter="Unread">Unread</button><button data-filter="Reading">Reading</button><button data-filter="Read">Read</button><button data-filter="favorites">Favorites</button><button data-filter="Owned">Owned</button><button data-filter="Wishlist">Wishlist</button><button data-filter="Manga">Manga</button></div><div id="bookList"></div></section>
+</main>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/api/me', { credentials: 'include' });
+    const data = await res.json();
+    if (!data.loggedIn) window.location.replace('/login.html');
+  } catch (err) {
+    window.location.replace('/login.html');
+  }
+})();
+</script>
+
+</body></html>

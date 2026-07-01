@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Search</title><link rel="stylesheet" href="styles.css" /><script defer src="app.js"></script></head>
+<body data-page="search">
+<header class="topbar"><div><h1>Search Books</h1><p>Title, author, status, favorite, series, format, collections, tags</p></div><nav><a href="index.html">Home</a><a href="books.html">Books</a><a href="manage.html">Manage</a><a href="status.html">Status</a><a href="search.html">Search</a></nav></header>
+<main class="container"><section class="card grid form-grid"><select id="searchField"><option value="title">Title</option><option value="author">Author</option><option value="status">Status</option><option value="favorite">Favorite</option><option value="series">Series</option><option value="format">Format</option><option value="collection">Collection</option><option value="tag">Tag</option></select><input id="searchInput" placeholder="Enter search term" /><div class="toolbar"><button id="searchButton">Search</button><button id="clearSearchBtn" type="button">Clear</button></div><div id="searchResults"></div></section></main>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/api/me', { credentials: 'include' });
+    const data = await res.json();
+    if (!data.loggedIn) window.location.replace('/login.html');
+  } catch (err) {
+    window.location.replace('/login.html');
+  }
+})();
+</script>
+
+</body></html>

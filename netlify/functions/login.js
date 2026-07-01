@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { getDB } from "./_shared/db.js";
+import { makeAuthCookie } from "./_shared/cookie.js";
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -10,7 +12,18 @@ export const handler = async (event) => {
     };
   }
 
-  const { username, password } = JSON.parse(event.body || "{}");
+  let body;
+  try {
+    body = JSON.parse(event.body || "{}");
+  } catch {
+    return {
+      statusCode: 400,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Invalid JSON body" }),
+    };
+  }
+
+  const { username, password } = body;
 
   if (!username || !password) {
     return {
@@ -47,9 +60,18 @@ export const handler = async (event) => {
       };
     }
 
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "14d" }
+    );
+
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Set-Cookie": makeAuthCookie(token),
+      },
       body: JSON.stringify({
         ok: true,
         user: { id: user.id, username: user.username },

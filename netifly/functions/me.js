@@ -1,10 +1,7 @@
-export default async () => {
-  return new Response(JSON.stringify({ ok: true, loggedIn: false }), {
-    status: 200,
+export const handler = async () => {
+  return {
+    statusCode: 200,
     headers: { "Content-Type": "application/json" },
-  });
-};
-
-export const config = {
-  path: "/api/me",
+    body: JSON.stringify({ loggedIn: false }),
+  };
 };

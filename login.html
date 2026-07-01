@@ -11,8 +11,22 @@
     <section class="card" style="max-width:420px;margin:40px auto;">
       <h1>Login</h1>
       <form id="loginForm" class="grid form-grid">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+        <input
+  type="text"
+  name="username"
+  id="login-username"
+  placeholder="Username"
+  autocomplete="username"
+  required
+>
+        <input
+  type="password"
+  name="password"
+  id="login-password"
+  placeholder="Password"
+  autocomplete="current-password"
+  required
+>
         <button type="submit">Log In</button>
       </form>
       <p id="loginMsg"></p>

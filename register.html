@@ -1,19 +1,26 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register</title>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
+
 <body>
   <main class="container">
     <section class="card" style="max-width:420px;margin:40px auto;">
       <h1>Register</h1>
       <form id="registerForm" class="grid form-grid">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <input type="text" name="username" id="register-username" placeholder="Username" autocomplete="username"
+          required>
+
+        <input type="password" name="password" id="register-password" placeholder="Password" autocomplete="new-password"
+          required>
+
+        <input type="password" name="confirmPassword" id="register-confirm" placeholder="Confirm Password"
+          autocomplete="new-password" required>
         <button type="submit">Create Account</button>
       </form>
       <p id="registerMsg"></p>
@@ -38,4 +45,5 @@
     });
   </script>
 </body>
+
 </html>
